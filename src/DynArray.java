@@ -2,6 +2,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class DynArray<T> {
+    public final int MIN_CAPACITY = 16;
     public T[] array;
     public int count;
     public int capacity;
@@ -12,7 +13,7 @@ public class DynArray<T> {
         // new DynArray<Integer>(Integer.class);
 
         count = 0;
-        makeArray(16);
+        makeArray(MIN_CAPACITY);
     }
 
     @SuppressWarnings("unchecked")
@@ -26,20 +27,46 @@ public class DynArray<T> {
     }
 
     public T getItem(int index) {
-        // ваш код
-        return null;
+        checkIndex(index);
+        return array[index];
     }
 
     public void append(T itm) {
-        // ваш код
+        insert(itm, count == 0 ? 0 : count - 1);
     }
 
     public void insert(T itm, int index) {
-        // ваш код
+        checkIndex(index);
+        if (count == capacity) {
+            makeArray(capacity * 2);
+        }
+
+        if (index < count - 1) {
+            System.arraycopy(array, index, array, index + 1, count - index);
+        }
+        array[index] = itm;
+        count++;
     }
 
     public void remove(int index) {
-        // ваш код
+        if (count == 0) {
+            return;
+        }
+        checkIndex(index);
+        System.arraycopy(array, index + 1, array, index, count - index - 1);
+        count--;
+
+        if (capacity > MIN_CAPACITY && count < capacity / 2) {
+            capacity = (capacity / 1.5 < MIN_CAPACITY) ? MIN_CAPACITY : (int) (capacity / 1.5);
+            makeArray(capacity);
+        }
+
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index > capacity) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
     }
 
 }
