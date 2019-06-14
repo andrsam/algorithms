@@ -1,7 +1,5 @@
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("unchecked")
@@ -51,7 +49,6 @@ public class DynArrayTest {
         assertEquals(0, dynArray.count);
         fillArray(8);
         dynArray.remove(1);
-        System.out.println(Arrays.toString(dynArray.array));
         assertEquals(7, dynArray.count);
         dynArray = new DynArray(Integer.class);
         dynArray.makeArray(32);
