@@ -27,7 +27,9 @@ public class DynArray<T> {
     }
 
     public T getItem(int index) {
-        checkIndex(index);
+        if (index < 0 || index > capacity - 1) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
         return array[index];
     }
 
