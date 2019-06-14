@@ -64,7 +64,8 @@ public class DynArray<T> {
     }
 
     private void checkIndex(int index) {
-        if (index < 0 || index > capacity - 1 && count < capacity) {
+        if (index < 0 || index > capacity - 1
+                && !(count == capacity && index == capacity)) {
             throw new ArrayIndexOutOfBoundsException();
         }
     }

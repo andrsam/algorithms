@@ -24,6 +24,7 @@ public class DynArrayTest {
     public void insertToWrongPosition() {
         fillArray(8);
         dynArray.insert(32, -1);
+        dynArray.insert(64, 64);
     }
 
     @Test
