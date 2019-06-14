@@ -65,6 +65,7 @@ public class DynArrayTest {
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void removeFromWrongPosition() {
         dynArray.remove(-1);
+        dynArray.remove(17);
     }
 
     private void fillArray(int length) {
