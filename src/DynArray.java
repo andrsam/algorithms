@@ -32,7 +32,7 @@ public class DynArray<T> {
     }
 
     public void append(T itm) {
-        insert(itm, count == 0 ? 0 : count - 1);
+        insert(itm, count);
     }
 
     public void insert(T itm, int index) {
@@ -41,7 +41,7 @@ public class DynArray<T> {
             makeArray(capacity * 2);
         }
 
-        if (index < count - 1) {
+        if (index <= count - 1) {
             System.arraycopy(array, index, array, index + 1, count - index);
         }
         array[index] = itm;
@@ -49,10 +49,10 @@ public class DynArray<T> {
     }
 
     public void remove(int index) {
+        checkIndex(index);
         if (count == 0) {
             return;
         }
-        checkIndex(index);
         System.arraycopy(array, index + 1, array, index, count - index - 1);
         count--;
 
@@ -64,7 +64,7 @@ public class DynArray<T> {
     }
 
     private void checkIndex(int index) {
-        if (index < 0 || index > capacity - 1) {
+        if (index < 0 || index > capacity) {
             throw new ArrayIndexOutOfBoundsException();
         }
     }

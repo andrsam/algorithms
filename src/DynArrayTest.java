@@ -2,7 +2,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("unchecked")
@@ -31,16 +30,18 @@ public class DynArrayTest {
 
     @Test
     public void insert() {
-        fillArray(8);
-        dynArray.insert(32, 1);
-        assertArrayEquals(new Integer[]{1, 32, 1, 1, 1, 1, 1, 1}, Arrays.copyOfRange(dynArray.array, 0, 8));
-        assertEquals(9, dynArray.count);
-        assertEquals(dynArray.MIN_CAPACITY, dynArray.capacity);
-        fillArray(16);
-        dynArray.insert(32, 1);
-        assertEquals(32, dynArray.getItem(1));
-        assertEquals(32, dynArray.capacity);
-        assertEquals(17, dynArray.count);
+        fillArray(dynArray.MIN_CAPACITY);
+        assertEquals(dynArray.MIN_CAPACITY, dynArray.count);
+        dynArray.insert(99, 0);
+        assertEquals(99, dynArray.getItem(0));
+        assertEquals(dynArray.MIN_CAPACITY * 2, dynArray.capacity);
+        assertEquals(dynArray.MIN_CAPACITY + 1, dynArray.count);
+        dynArray = new DynArray(Integer.class);
+        fillArray(dynArray.MIN_CAPACITY);
+        dynArray.append(99);
+        assertEquals(99, dynArray.getItem(dynArray.MIN_CAPACITY));
+        assertEquals(dynArray.MIN_CAPACITY * 2, dynArray.capacity);
+        assertEquals(dynArray.MIN_CAPACITY + 1, dynArray.count);
     }
 
 
@@ -50,7 +51,9 @@ public class DynArrayTest {
         assertEquals(0, dynArray.count);
         fillArray(8);
         dynArray.remove(1);
+        System.out.println(Arrays.toString(dynArray.array));
         assertEquals(7, dynArray.count);
+        dynArray = new DynArray(Integer.class);
         dynArray.makeArray(32);
         fillArray(16);
         dynArray.remove(1);
@@ -67,8 +70,9 @@ public class DynArrayTest {
     }
 
     private void fillArray(int length) {
-        Arrays.fill(dynArray.array, 0, length, 1);
-        dynArray.count = length;
+        for (int i = 0; i < length; i++) {
+            dynArray.append(i);
+        }
     }
 
 }
