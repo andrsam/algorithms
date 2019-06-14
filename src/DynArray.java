@@ -36,7 +36,11 @@ public class DynArray<T> {
     }
 
     public void insert(T itm, int index) {
-        checkIndex(index);
+        if (index < 0 || index > capacity - 1
+                && !(count == capacity && index == capacity)) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
         if (count == capacity) {
             makeArray(capacity * 2);
         }
@@ -49,7 +53,10 @@ public class DynArray<T> {
     }
 
     public void remove(int index) {
-        checkIndex(index);
+        if (index < 0 || index > capacity - 1) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
         if (count == 0) {
             return;
         }
@@ -61,13 +68,6 @@ public class DynArray<T> {
             makeArray(capacity);
         }
 
-    }
-
-    private void checkIndex(int index) {
-        if (index < 0 || index > capacity - 1
-                && !(count == capacity && index == capacity)) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
     }
 
 }
