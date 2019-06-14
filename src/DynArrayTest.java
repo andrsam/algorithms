@@ -46,8 +46,6 @@ public class DynArrayTest {
 
     @Test
     public void remove() {
-        dynArray.remove(0);
-        assertEquals(0, dynArray.count);
         fillArray(8);
         dynArray.remove(1);
         assertEquals(7, dynArray.count);
@@ -64,6 +62,12 @@ public class DynArrayTest {
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void removeFromWrongPosition() {
+        dynArray.remove(0);
+        assertEquals(0, dynArray.count);
+        assertEquals(dynArray.MIN_CAPACITY, dynArray.capacity);
+        assertEquals(dynArray.MIN_CAPACITY, dynArray.array.length);
+
+        dynArray.remove(2);
         dynArray.remove(-1);
         dynArray.remove(17);
     }

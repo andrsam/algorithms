@@ -51,8 +51,9 @@ public class DynArray<T> {
     public void remove(int index) {
         checkIndex(index);
         if (count == 0) {
-            return;
+            throw new ArrayIndexOutOfBoundsException();
         }
+
         System.arraycopy(array, index + 1, array, index, count - index - 1);
         count--;
 
