@@ -2,7 +2,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class DynArray<T> {
-    public static final int MIN_CAPACITY = 16;
+    public final int MIN_CAPACITY = 16;
     public T[] array;
     public int count;
     public int capacity;
@@ -27,36 +27,46 @@ public class DynArray<T> {
     }
 
     public T getItem(int index) {
-        if (index < 0 || index > array.length) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-
+        checkIndex(index);
         return array[index];
     }
 
     public void append(T itm) {
-        ensureCapacity();
-        array[count++] = itm;
+        insert(itm, count);
     }
 
     public void insert(T itm, int index) {
-        ensureCapacity();
-        if (index == count - 1) {
-            append(itm);
-        }  else {
-            System.arraycopy(array, index + 1, array, index + 2, count - index - 1);
-            array[index] = itm;
-        }
-    }
-
-    private void ensureCapacity() {
-        if (count + 1 > capacity) {
+        checkIndex(index);
+        if (count == capacity) {
             makeArray(capacity * 2);
         }
+
+        if (index <= count - 1) {
+            System.arraycopy(array, index, array, index + 1, count - index);
+        }
+        array[index] = itm;
+        count++;
     }
 
     public void remove(int index) {
-        // ваш код
+        checkIndex(index);
+        if (count == 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+
+        System.arraycopy(array, index + 1, array, index, count - index - 1);
+        count--;
+
+        if (capacity > MIN_CAPACITY && count < capacity / 2) {
+            capacity = (capacity / 1.5 < MIN_CAPACITY) ? MIN_CAPACITY : (int) (capacity / 1.5);
+            makeArray(capacity);
+        }
+
     }
 
+    private void checkIndex(int index) {
+        if (index < 0 || index > count) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+    }
 }
