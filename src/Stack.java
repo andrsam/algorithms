@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Stack<T> {
-    private ArrayList<T> storage;
+    private List<T> storage;
 
     public Stack() {
         storage = new ArrayList<>();
