@@ -9,5 +9,8 @@ public class BracesBalanceCheckerTest {
     public void isBracesBalanced() {
         assertTrue(BracesBalanceChecker.isBracesBalanced("(()((())()))"));
         assertFalse(BracesBalanceChecker.isBracesBalanced("(()()(()"));
+        assertFalse(BracesBalanceChecker.isBracesBalanced("))(("));
+        assertFalse(BracesBalanceChecker.isBracesBalanced("((())"));
+        assertFalse(BracesBalanceChecker.isBracesBalanced("())("));
     }
 }
