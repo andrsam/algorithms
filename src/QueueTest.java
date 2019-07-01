@@ -1,38 +1,33 @@
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-@SuppressWarnings("unchecked")
 public class QueueTest {
-    private Queue queue = new Queue();
+    private Queue<Integer> queue = new Queue<>();
+
+    @Test
+    public void enqueue() {
+        assertEquals(0, queue.size());
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        assertEquals(3, queue.size());
+    }
+
+    @Test
+    public void dequeue() {
+        assertNull(queue.dequeue());
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        assertEquals(Integer.valueOf(1), queue.dequeue());
+    }
 
     @Test
     public void size() {
         assertEquals(0, queue.size());
-        queue.push(1);
-        queue.push("test");
-        assertEquals(2, queue.size());
-    }
-
-    @Test
-    public void pop() {
-        queue.push(1);
-        queue.push(2);
-        queue.push(3);
-        assertEquals(1, queue.pop());
-    }
-
-    @Test
-    public void push() {
-        queue.push(1);
-        queue.push(2);
-        queue.push(3);
-        assertEquals(1, queue.peek());
-    }
-
-    @Test
-    public void peek() {
-        queue.push(1);
-        assertEquals(1, queue.peek());
+        queue.enqueue(1);
+        assertEquals(1, queue.size());
     }
 }

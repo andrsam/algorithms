@@ -7,25 +7,20 @@ public class Queue<T> {
         storage = new LinkedList<>();
     }
 
+    public void enqueue(T item) {
+        storage.addFirst(item);
+    }
+
+    public T dequeue() {
+        if (storage.size() > 0) {
+            // выдача из головы
+            return storage.getLast();
+        }
+        return null; // null если очередь пустая
+    }
+
     public int size() {
-        return storage.size();
+        return storage.size(); // размер очереди
     }
 
-    public T pop() {
-        if (storage.size() > 0) {
-            return storage.removeFirst();
-        }
-        return null;  // если стек пустой
-    }
-
-    public void push(T val) {
-        storage.add(val);
-    }
-
-    public T peek() {
-        if (storage.size() > 0) {
-            return storage.getFirst();
-        }
-        return null; // если стек пустой
-    }
 }
