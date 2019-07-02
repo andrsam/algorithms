@@ -14,7 +14,7 @@ public class Queue<T> {
     public T dequeue() {
         if (storage.size() > 0) {
             // выдача из головы
-            return storage.getLast();
+            return storage.removeLast();
         }
         return null; // null если очередь пустая
     }

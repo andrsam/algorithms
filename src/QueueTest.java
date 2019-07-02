@@ -19,9 +19,11 @@ public class QueueTest {
     public void dequeue() {
         assertNull(queue.dequeue());
         queue.enqueue(1);
+        assertEquals(Integer.valueOf(1), queue.dequeue());
+        assertEquals(0, queue.size());
         queue.enqueue(2);
         queue.enqueue(3);
-        assertEquals(Integer.valueOf(1), queue.dequeue());
+        assertEquals(Integer.valueOf(2), queue.dequeue());
     }
 
     @Test
