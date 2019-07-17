@@ -10,10 +10,10 @@ public class PalindromeChecker {
         }
 
         boolean result = true;
-        while (deque.size() > 0) {
+        while (deque.size() > 1) {
             Character front = deque.removeFront();
             Character tail = deque.removeTail();
-            if (front != null && tail != null && !front.equals(tail)) {
+            if (!front.equals(tail)) {
                 result = false;
                 break;
             }
