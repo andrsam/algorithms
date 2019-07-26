@@ -16,30 +16,37 @@ public class OrderedListTest {
     public void add() {
         orderedListIntAsc.add(1);
         orderedListIntAsc.add(2);
-        assertEquals(2, orderedListIntAsc.count());
-        assertEquals(1, orderedListIntAsc.head.value.intValue());
-        assertEquals(2, orderedListIntAsc.head.next.value.intValue());
+        orderedListIntAsc.add(-1);
+        //[-1, 1, 2]
+        assertEquals(3, orderedListIntAsc.count());
+        assertEquals(-1, orderedListIntAsc.head.value.intValue());
+        assertEquals(1, orderedListIntAsc.head.next.value.intValue());
         assertEquals(2, orderedListIntAsc.tail.value.intValue());
         assertEquals(1, orderedListIntAsc.tail.prev.value.intValue());
-        orderedListIntAsc.add(3);
-        assertEquals(3, orderedListIntAsc.count());
-        assertEquals(1, orderedListIntAsc.head.value.intValue());
-        assertEquals(3, orderedListIntAsc.tail.value.intValue());
+
+        orderedListIntAsc.add(1);
+        //[-1, 1, 1, 2]
+        assertEquals(4, orderedListIntAsc.count());
+        assertEquals(1, orderedListIntAsc.tail.prev.value.intValue());
+        assertEquals(1, orderedListIntAsc.head.next.value.intValue());
+        assertEquals(2, orderedListIntAsc.tail.value.intValue());
+        assertEquals(-1, orderedListIntAsc.head.value.intValue());
 
         orderedListIntDesc.add(1);
         orderedListIntDesc.add(2);
-        assertEquals(2, orderedListIntDesc.count());
-        assertEquals(2, orderedListIntDesc.head.value.intValue());
-        assertEquals(1, orderedListIntDesc.head.next.value.intValue());
+        orderedListIntDesc.add(9);
+        assertEquals(3, orderedListIntDesc.count());
+        assertEquals(9, orderedListIntDesc.head.value.intValue());
+        assertEquals(2, orderedListIntDesc.head.next.value.intValue());
         assertEquals(1, orderedListIntDesc.tail.value.intValue());
         assertEquals(2, orderedListIntDesc.tail.prev.value.intValue());
 
-        orderedListIntDesc.add(-1);
-        orderedListIntDesc.add(-2);
-        orderedListIntDesc.add(9);
-        assertEquals(5, orderedListIntDesc.count());
+        orderedListIntDesc.add(2);
+        assertEquals(4, orderedListIntDesc.count());
         assertEquals(9, orderedListIntDesc.head.value.intValue());
-        assertEquals(-2, orderedListIntDesc.tail.value.intValue());
+        assertEquals(2, orderedListIntDesc.head.next.value.intValue());
+        assertEquals(1, orderedListIntDesc.tail.value.intValue());
+        assertEquals(2, orderedListIntDesc.tail.prev.value.intValue());
 
         orderedListStrAsc.add("a");
         orderedListStrAsc.add("b");

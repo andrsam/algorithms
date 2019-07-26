@@ -57,7 +57,7 @@ public class OrderedList<T> {
                 cmp = ((Integer) v1).compareTo((Integer) v2);
                 break;
         }
-        return cmp;
+        return cmp * getSortOrder();
     }
 
     @SuppressWarnings("unchecked")
@@ -72,18 +72,26 @@ public class OrderedList<T> {
             this.head.prev = null;
         } else {
             Node<T> prevNode = head;
-            while (prevNode.next != null && compare(prevNode.value, value) == getSortOrder()) {
+            while (prevNode.next != null && compare(prevNode.value, value) == -1) {
                 prevNode = prevNode.next;
             }
-            if (_ascending) {
-                tail.next = newNode;
-                newNode.prev = tail;
-                tail = newNode;
+            //[newNode, prevNode]
+            if (compare(prevNode.value, value) == 1) {
+                newNode.next = prevNode;
+                prevNode.prev = newNode;
+                if (prevNode == head) {
+                    head = newNode;
+                }
             } else {
-                newNode.next = head;
-                tail.prev = newNode;
-                tail = head;
-                head = newNode;
+                newNode.prev = prevNode;
+                if (prevNode == tail) {
+                    tail = newNode;
+                    newNode.next = null;
+                } else {
+                    newNode.next = prevNode.next;
+                    prevNode.next.prev = newNode;
+                }
+                prevNode.next = newNode;
             }
         }
 
@@ -157,6 +165,6 @@ public class OrderedList<T> {
     }
 
     private int getSortOrder() {
-        return _ascending ? -1 : 1;
+        return _ascending ? 1 : -1;
     }
 }
