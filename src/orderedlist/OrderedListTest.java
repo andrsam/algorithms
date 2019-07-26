@@ -48,6 +48,13 @@ public class OrderedListTest {
         assertEquals(1, orderedListIntDesc.tail.value.intValue());
         assertEquals(2, orderedListIntDesc.tail.prev.value.intValue());
 
+        orderedListIntDesc.add(3);
+        assertEquals(5, orderedListIntDesc.count());
+        assertEquals(9, orderedListIntDesc.head.value.intValue());
+        assertEquals(3, orderedListIntDesc.head.next.value.intValue());
+        assertEquals(1, orderedListIntDesc.tail.value.intValue());
+        assertEquals(2, orderedListIntDesc.tail.prev.value.intValue());
+
         orderedListStrAsc.add("a");
         orderedListStrAsc.add("b");
         assertEquals(2, orderedListStrAsc.count());

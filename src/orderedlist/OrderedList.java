@@ -78,10 +78,12 @@ public class OrderedList<T> {
             //[newNode, prevNode]
             if (compare(prevNode.value, value) == 1) {
                 newNode.next = prevNode;
-                prevNode.prev = newNode;
                 if (prevNode == head) {
                     head = newNode;
+                } else {
+                    prevNode.prev.next = newNode;
                 }
+                prevNode.prev = newNode;
             } else {
                 newNode.prev = prevNode;
                 if (prevNode == tail) {
