@@ -79,6 +79,7 @@ public class OrderedListTest {
         orderedListIntAsc.add(2);
         orderedListIntAsc.add(3);
         assertEquals(2, orderedListIntAsc.find(2).value.intValue());
+        assertNull(orderedListIntAsc.find(-1));
     }
 
     @Test

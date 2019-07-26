@@ -104,7 +104,7 @@ public class OrderedList<T> {
             return null;
         }
         Node node = head;
-        while (node.value != val) {
+        while (node != null && node.value != val) {
             node = node.next;
         }
         return node;
