@@ -20,56 +20,70 @@ public class OrderedListTest {
         //[-1, 1, 2]
         assertEquals(3, orderedListIntAsc.count());
         assertEquals(-1, orderedListIntAsc.head.value.intValue());
-        assertEquals(1, orderedListIntAsc.head.next.value.intValue());
         assertEquals(2, orderedListIntAsc.tail.value.intValue());
-        assertEquals(1, orderedListIntAsc.tail.prev.value.intValue());
+        assertEquals("-1,1,2", orderedListIntAsc.asString());
 
         orderedListIntAsc.add(1);
         //[-1, 1, 1, 2]
         assertEquals(4, orderedListIntAsc.count());
-        assertEquals(1, orderedListIntAsc.tail.prev.value.intValue());
-        assertEquals(1, orderedListIntAsc.head.next.value.intValue());
         assertEquals(2, orderedListIntAsc.tail.value.intValue());
         assertEquals(-1, orderedListIntAsc.head.value.intValue());
+        assertEquals("-1,1,1,2", orderedListIntAsc.asString());
 
         orderedListIntDesc.add(1);
         orderedListIntDesc.add(2);
         orderedListIntDesc.add(9);
         assertEquals(3, orderedListIntDesc.count());
         assertEquals(9, orderedListIntDesc.head.value.intValue());
-        assertEquals(2, orderedListIntDesc.head.next.value.intValue());
-        assertEquals(1, orderedListIntDesc.tail.value.intValue());
-        assertEquals(2, orderedListIntDesc.tail.prev.value.intValue());
+        assertEquals("9,2,1", orderedListIntDesc.asString());
 
         orderedListIntDesc.add(2);
         assertEquals(4, orderedListIntDesc.count());
         assertEquals(9, orderedListIntDesc.head.value.intValue());
-        assertEquals(2, orderedListIntDesc.head.next.value.intValue());
         assertEquals(1, orderedListIntDesc.tail.value.intValue());
-        assertEquals(2, orderedListIntDesc.tail.prev.value.intValue());
+        assertEquals("9,2,2,1", orderedListIntDesc.asString());
 
         orderedListIntDesc.add(3);
         assertEquals(5, orderedListIntDesc.count());
         assertEquals(9, orderedListIntDesc.head.value.intValue());
-        assertEquals(3, orderedListIntDesc.head.next.value.intValue());
         assertEquals(1, orderedListIntDesc.tail.value.intValue());
-        assertEquals(2, orderedListIntDesc.tail.prev.value.intValue());
+        assertEquals("9,3,2,2,1", orderedListIntDesc.asString());
 
         orderedListStrAsc.add("a");
         orderedListStrAsc.add("b");
         assertEquals(2, orderedListStrAsc.count());
         assertEquals("a", orderedListStrAsc.head.value);
-        assertEquals("b", orderedListStrAsc.head.next.value);
         assertEquals("b", orderedListStrAsc.tail.value);
-        assertEquals("a", orderedListStrAsc.tail.prev.value);
+        assertEquals("a,b", orderedListStrAsc.asString());
+
+        orderedListStrAsc.add("");
+        assertEquals(3, orderedListStrAsc.count());
+        assertEquals("", orderedListStrAsc.head.value);
+        assertEquals("b", orderedListStrAsc.tail.value);
+        assertEquals(",a,b", orderedListStrAsc.asString());
 
         orderedListStrDesc.add("a");
         orderedListStrDesc.add("b");
         assertEquals(2, orderedListStrDesc.count());
         assertEquals("b", orderedListStrDesc.head.value);
-        assertEquals("a", orderedListStrDesc.head.next.value);
         assertEquals("a", orderedListStrDesc.tail.value);
-        assertEquals("b", orderedListStrDesc.tail.prev.value);
+        assertEquals("b,a", orderedListStrDesc.asString());
+
+        orderedListStrDesc.add("");
+        assertEquals(3, orderedListStrDesc.count());
+        assertEquals("b", orderedListStrDesc.head.value);
+        assertEquals("", orderedListStrDesc.tail.value);
+        assertEquals("b,a,", orderedListStrDesc.asString());
+
+        orderedListStrDesc.add("c");
+        assertEquals(4, orderedListStrDesc.count());
+        assertEquals("c", orderedListStrDesc.head.value);
+        assertEquals("", orderedListStrDesc.tail.value);
+        assertEquals("c,b,a,", orderedListStrDesc.asString());
+
+        orderedListStrDesc.add("f");
+        orderedListStrDesc.add("e");
+        assertEquals("f,e,c,b,a,", orderedListStrDesc.asString());
     }
 
     @Test

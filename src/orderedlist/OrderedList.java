@@ -1,7 +1,8 @@
 package orderedlist;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 class Node<T> {
@@ -14,18 +15,6 @@ class Node<T> {
         prev = null;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Node<?> node = (Node<?>) o;
-        return Objects.equals(value, node.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
-    }
 }
 
 public class OrderedList<T> {
@@ -72,11 +61,11 @@ public class OrderedList<T> {
             this.head.prev = null;
         } else {
             Node<T> prevNode = head;
-            while (prevNode.next != null && compare(prevNode.value, value) == -1) {
+            while (prevNode.next != null && compare(prevNode.value, value) < 0) {
                 prevNode = prevNode.next;
             }
             //[newNode, prevNode]
-            if (compare(prevNode.value, value) == 1) {
+            if (compare(prevNode.value, value) > 0) {
                 newNode.next = prevNode;
                 if (prevNode == head) {
                     head = newNode;
@@ -164,6 +153,17 @@ public class OrderedList<T> {
             node = node.next;
         }
         return r;
+    }
+
+    String asString() {
+        if (head == null) {
+            return "";
+        }
+
+        Function<Node<T>, String> converter = head.value.getClass().getName().equals(DATATYPE_INTEGER) ?
+                n -> String.valueOf(n.value) : n -> (String) n.value;
+
+        return getAll().stream().map(converter).collect(Collectors.joining(","));
     }
 
     private int getSortOrder() {
