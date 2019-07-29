@@ -1,7 +1,6 @@
 package orderedlist;
 
 import java.util.ArrayList;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
@@ -158,11 +157,7 @@ public class OrderedList<T> {
         if (head == null) {
             return "";
         }
-
-        Function<Node<T>, String> converter = head.value.getClass().getName().equals(DATATYPE_INTEGER) ?
-                n -> String.valueOf(n.value) : n -> (String) n.value;
-
-        return getAll().stream().map(converter).collect(Collectors.joining(","));
+        return getAll().stream().map(n -> String.valueOf(n.value)).collect(Collectors.joining(","));
     }
 
     private int getSortOrder() {
