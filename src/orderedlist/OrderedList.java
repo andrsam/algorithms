@@ -49,7 +49,6 @@ public class OrderedList<T> {
         return cmp * getSortOrder();
     }
 
-    @SuppressWarnings("unchecked")
     public void add(T value) {
         // автоматическая вставка value
         // в нужную позицию
@@ -155,7 +154,7 @@ public class OrderedList<T> {
         return r;
     }
 
-    String asString() {
+    public String asString() {
         if (head == null) {
             return "";
         }
