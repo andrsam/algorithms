@@ -84,13 +84,24 @@ public class OrderedList<T> {
 
     }
 
+    @SuppressWarnings("unchecked")
     public Node<T> find(T val) {
         if (head == null) {
             return null;
         }
+
+        if (head.value.equals(val)) {
+            return head;
+        }
+
         Node node = head;
         while (node != null && node.value != val) {
             node = node.next;
+
+            if (compare((T) node.value, val) > 0) {
+                node = null;
+                break;
+            }
         }
         return node;
     }
