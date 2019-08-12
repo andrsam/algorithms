@@ -36,7 +36,7 @@ public class HashTable {
             }
         }
 
-        for (int i = 0; i < index; i += step) {
+        for (int i = index; i > 0; i -= step) {
             if (slots[i] == null) {
                 return i;
             }
