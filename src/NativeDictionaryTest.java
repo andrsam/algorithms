@@ -14,6 +14,7 @@ public class NativeDictionaryTest {
 
     @Test
     public void get() {
+        assertNull(dictionary.get("ff"));
         dictionary.put("a", 1);
         dictionary.put("b", 2);
         assertEquals(1, dictionary.get("a").intValue());
