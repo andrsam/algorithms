@@ -24,11 +24,11 @@ class NativeDictionary<T> {
         // возвращает true если ключ имеется,
         // иначе false
         int i = 0;
-        while (i < slots.length - 1) {
-            i++;
-            if (slots[i].equals(key)) {
+        while (i < slots.length) {
+            if (slots[i] != null && slots[i].equals(key)) {
                 return true;
             }
+            i++;
         }
         return false;
     }
@@ -36,7 +36,10 @@ class NativeDictionary<T> {
     public void put(String key, T value) {
         // гарантированно записываем
         // значение value по ключу key
-        values[hashFun(key)] = value;
+
+        int index = hashFun(key);
+        slots[index] = key;
+        values[index] = value;
     }
 
     public T get(String key) {

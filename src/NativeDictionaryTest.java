@@ -1,13 +1,13 @@
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class NativeDictionaryTest {
     private NativeDictionary<Integer> dictionary = new NativeDictionary<>(10, Integer.class);
 
     @Test
     public void isKey() {
+        assertFalse(dictionary.isKey("a"));
         dictionary.put("a", 1);
         assertTrue(dictionary.isKey("a"));
     }
