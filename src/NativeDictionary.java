@@ -24,7 +24,7 @@ class NativeDictionary<T> {
         // возвращает true если ключ имеется,
         // иначе false
 
-        if (slots[hashFun(key)] != null) {
+        if (slots[hashFun(key)] != null && slots[hashFun(key)].equals(key)) {
             return true;
         }
         return false;
