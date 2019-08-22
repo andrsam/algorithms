@@ -69,5 +69,8 @@ public class PowerSetTest {
 
     @Test
     public void remove() {
+        set1.fillFromList(Arrays.asList(2, 3, 5));
+        assertTrue(set1.remove(2));
+        assertFalse(set1.remove(7));
     }
 }
