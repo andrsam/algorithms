@@ -5,8 +5,8 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class PowerSetTest {
-    PowerSet<Integer> set1 = new PowerSet<>(20000, Integer.class);
-    PowerSet<Integer> set2 = new PowerSet<>(20000, Integer.class);
+    PowerSet<Integer> set1 = new PowerSet<>(Integer.class);
+    PowerSet<Integer> set2 = new PowerSet<>(Integer.class);
 
     @Test
     public void intersection() {
@@ -72,5 +72,12 @@ public class PowerSetTest {
         set1.fillFromList(Arrays.asList(2, 3, 5));
         assertTrue(set1.remove(2));
         assertFalse(set1.remove(7));
+    }
+
+    @Test
+    public void put() {
+        set1.put(20001);
+        assertEquals(20002, set1.slots.size());
+        assertTrue(set1.get(20001));
     }
 }

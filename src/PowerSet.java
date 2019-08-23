@@ -7,16 +7,17 @@ import java.util.stream.Collectors;
 
 public class PowerSet<T> {
     public int size;
-    public ArrayList<T> slots;
+    public List<T> slots;
     public Class<T> clazz;
+    public static final int INITIAL_SIZE = 20000;
 
 
     @SuppressWarnings("unchecked")
-    public PowerSet(int sz, Class<T> clazz) {
+    public PowerSet(Class<T> clazz) {
         // ваша реализация хранилища
-        this.size = sz;
+        this.size = INITIAL_SIZE;
         this.clazz = clazz;
-        slots = new ArrayList<>(Arrays.asList((T[]) Array.newInstance(clazz, sz)));
+        slots = new ArrayList<>(Arrays.asList((T[]) Array.newInstance(clazz, INITIAL_SIZE)));
     }
 
     private int hashFun(T value) {
@@ -42,12 +43,19 @@ public class PowerSet<T> {
         return slots.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
 
+    @SuppressWarnings("unchecked")
     public void put(T value) {
         // всегда срабатывает
         if (value == null) {
             return;
         }
         int i = hashFun(value);
+
+        if (i > slots.size()) {
+            size = i;
+            slots = (List<T>) Arrays.asList(Arrays.copyOf(slots.toArray(), i + 1));
+        }
+
         T slotVal = slots.get(i);
         if (slotVal == null || (!slotVal.equals(value))) {
             slots.set(i, value);
@@ -73,7 +81,7 @@ public class PowerSet<T> {
 
     public PowerSet<T> intersection(PowerSet<T> set2) {
         // пересечение текущего множества и set2
-        PowerSet<T> result = new PowerSet<>(this.size, this.clazz);
+        PowerSet<T> result = new PowerSet<>(this.clazz);
 
         for (int i = 0; i < size; i++) {
             if (slots.get(i) != null && set2.get(slots.get(i))) {
@@ -86,7 +94,7 @@ public class PowerSet<T> {
 
     public PowerSet<T> union(PowerSet<T> set2) {
         // объединение текущего множества и set2
-        PowerSet<T> result = new PowerSet<>(this.size, this.clazz);
+        PowerSet<T> result = new PowerSet<>(this.clazz);
         for (int i = 0; i < size; i++) {
             if (this.slots.get(i) != null) {
                 result.put(this.slots.get(i));
@@ -104,7 +112,7 @@ public class PowerSet<T> {
 
     public PowerSet<T> difference(PowerSet<T> set2) {
         // разница текущего множества и set2
-        PowerSet<T> result = new PowerSet<>(this.size, clazz);
+        PowerSet<T> result = new PowerSet<>(this.clazz);
 
         for (int i = 0; i < size; i++) {
             if (slots.get(i) != null) {
