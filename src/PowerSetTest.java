@@ -79,5 +79,13 @@ public class PowerSetTest {
         set1.put(20001);
         assertEquals(20002, set1.slots.size());
         assertTrue(set1.get(20001));
+
+        int i = 0;
+        while (i < 20_001) {
+            set2.put(i);
+            i++;
+        }
+
+        assertEquals(20_001, set2.size());
     }
 }

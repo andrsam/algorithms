@@ -51,7 +51,7 @@ public class PowerSet<T> {
         }
         int i = hashFun(value);
 
-        if (i > slots.size()) {
+        if (i > slots.size() - 1) {
             size = i;
             slots = (List<T>) Arrays.asList(Arrays.copyOf(slots.toArray(), i + 1));
         }
