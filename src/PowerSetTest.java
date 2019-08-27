@@ -5,8 +5,9 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class PowerSetTest {
-    PowerSet<Integer> set1 = new PowerSet<>(Integer.class);
-    PowerSet<Integer> set2 = new PowerSet<>(Integer.class);
+    PowerSet<Integer> set1 = new PowerSet<>();
+    PowerSet<Integer> set2 = new PowerSet<>();
+    PowerSet<String> set3 = new PowerSet<>();
 
     @Test
     public void intersection() {
@@ -30,7 +31,7 @@ public class PowerSetTest {
         assertEquals(Arrays.asList(1, 2, 3, 4, 7), set1.union(set2).asList());
 
         set2.fillFromList(Arrays.asList(2, 3, 5, 7));
-        assertEquals(Arrays.asList(1, 2, 3, 4, 5, 7), set1.union(set2).asList());
+        assertEquals(Arrays.asList(1, 2, 3, 4, 7, 5), set1.union(set2).asList());
     }
 
     @Test
@@ -43,12 +44,6 @@ public class PowerSetTest {
         set2.fillFromList(Arrays.asList(2, 3, 5, 7));
         assertEquals(Arrays.asList(1, 4), set1.difference(set2).asList());
     }
-
-    /**
-     * - issubset(), в качестве параметра выступает другое множество, и проверяется,
-     * входят ли все его элементы в текущее множество (будет ли множество-параметр подмножеством текущего множества).
-     */
-
 
     @Test
     public void isSubset() {
@@ -76,9 +71,6 @@ public class PowerSetTest {
 
     @Test
     public void put() {
-        set1.put(20001);
-        assertEquals(20002, set1.slots.size());
-        assertTrue(set1.get(20001));
 
         int i = 0;
         while (i < 20_001) {
@@ -87,5 +79,11 @@ public class PowerSetTest {
         }
 
         assertEquals(20_001, set2.size());
+
+        for (i = 0; i < 10000; i++) {
+            set3.put(String.valueOf(i));
+        }
+
+        assertEquals(10000, set3.size());
     }
 }
